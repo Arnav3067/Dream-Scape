@@ -1,4 +1,5 @@
 using DreamScape.Combat;
+using DreamScape.Core;
 using DreamScape.Locomotion;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace DreamScape.Controllers
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Movement playerMovement;
         [SerializeField] private Combatant combat;
+        [SerializeField] private Health playerHealth;
         [SerializeField] private float maxClickRange;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask clickableLayer;
@@ -24,10 +26,11 @@ namespace DreamScape.Controllers
         }
 
         private void Update() {
-            
+
+            if (!playerHealth.isAlive) return;
             if (CombastIfPossible()) return;
             if (MoveIfPossible()) return;
-
+            
         }
 
         private bool CombastIfPossible() {

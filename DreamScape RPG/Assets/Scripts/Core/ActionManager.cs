@@ -3,13 +3,8 @@ using UnityEngine;
 namespace DreamScape.Core {
 
     public class ActionManager : MonoBehaviour {
-        
-        public static ActionManager Instance {get; private set;}
-        private IAction currentAction;
 
-        private void Awake() {
-            Instance = this;
-        }
+        private IAction currentAction;
 
         /// <summary>
         /// cancels the current action (example: is current action is movement
@@ -26,5 +21,8 @@ namespace DreamScape.Core {
             currentAction = action;
         }
 
+        public void CancelCurrentAction() {
+            StartAction(null);
+        }
     }
 }

@@ -1,7 +1,8 @@
 using UnityEngine;
 using DreamScape.Core;
 using UnityEngine.AI;
- 
+using System;
+
 namespace DreamScape.Locomotion {
     
     [RequireComponent(typeof(NavMeshAgent))]
@@ -10,7 +11,9 @@ namespace DreamScape.Locomotion {
     {
 
         [SerializeField] private MovementAniamtions aniamtions;
-
+        [SerializeField] private Health health;
+        
+        private ActionManager actionManager;
         private NavMeshAgent navMeshAgent;
 
         public Vector3 LocalVelocity {
@@ -19,17 +22,17 @@ namespace DreamScape.Locomotion {
             }
         }
 
-        private void Start() {
+        private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            actionManager = GetComponent<ActionManager>();
+        }
+
+        private void Start() {
+            health.OnDeath += OnCharecterDeath;
         }
 
         private void Update() {
             PlayMovementAniamtions();
-        }
-
-
-        private void PlayMovementAniamtions() {
-            aniamtions.MapBlendTreeMovementVelocity(LocalVelocity.z);
         }
 
         public void Move(Vector3 position) {
@@ -38,12 +41,21 @@ namespace DreamScape.Locomotion {
         }
 
         public void StartMoveAction(Vector3 position) {
-            ActionManager.Instance.StartAction(this);
+            actionManager.StartAction(this);
             Move(position);
         }
 
         public void CancelAction() {
             navMeshAgent.isStopped = true;
+        }
+
+        private void PlayMovementAniamtions() {
+            aniamtions.MapBlendTreeMovementVelocity(LocalVelocity.z);
+        }
+
+        private void OnCharecterDeath(object sender, EventArgs e) {
+            navMeshAgent.enabled = false;
+            health.OnDeath -= OnCharecterDeath;
         }
 
     }

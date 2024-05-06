@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DreamScape.Combat {
+namespace DreamScape.Core {
 
     public class Health : MonoBehaviour {
 

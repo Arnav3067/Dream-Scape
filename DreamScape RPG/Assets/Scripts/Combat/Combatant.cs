@@ -19,12 +19,13 @@ namespace DreamScape.Combat {
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private CombatAnimations combatAntimations;
 
+        private ActionManager actionManager;
         private Transform target;
         private Health targetHealth;
         private Movement playerMovement;
         private float defaultRange = 0;
         private float stoppingOffset = 0.5f;
-        private float timeSinceLastAttack;
+        private float timeSinceLastAttack = Mathf.Infinity;
 
         private bool isTargetAlive {get {return targetHealth.isAlive;}}
 
@@ -37,6 +38,7 @@ namespace DreamScape.Combat {
 
         private void Awake() {
             TryGetComponent(out playerMovement);
+            actionManager = GetComponent<ActionManager>();
         }
 
         private void Update() {
@@ -56,7 +58,6 @@ namespace DreamScape.Combat {
             }
         }
 
-
         // interface function (IAction)
         public void CancelAction() {
             target = null;
@@ -65,7 +66,7 @@ namespace DreamScape.Combat {
         }
  
         public void StartCombatAction(Transform target) {
-            ActionManager.Instance.StartAction(this);
+            actionManager.StartAction(this);
             BeginCombat(target);
         }
 
