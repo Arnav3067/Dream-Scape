@@ -314,10 +314,6 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 5884262195258351238}
-    - target: {fileID: 5422264384131716577, guid: f8702ea3a4c19b541b6a60170e502dd0, type: 3}
-      propertyPath: actionManager
-      value: 
-      objectReference: {fileID: 3635494195013391393}
     - target: {fileID: 5665990230956863892, guid: f8702ea3a4c19b541b6a60170e502dd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 72.78
@@ -385,9 +381,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7138274410280530822, guid: f8702ea3a4c19b541b6a60170e502dd0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8375274228336288543}
-    - targetCorrespondingSourceObject: {fileID: 7138274410280530822, guid: f8702ea3a4c19b541b6a60170e502dd0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3635494195013391393}
   m_SourcePrefab: {fileID: 100100000, guid: f8702ea3a4c19b541b6a60170e502dd0, type: 3}
 --- !u!114 &433012737085456215 stripped
 MonoBehaviour:
@@ -463,23 +456,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 5
   chasCoolDownTime: 5
+  suspicionTime: 2
   combat: {fileID: 433012737085456215}
   health: {fileID: 5884262195258351238}
   movement: {fileID: 6440198539778864645}
   target: {fileID: 0}
 --- !u!114 &8375274228336288543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164973383816466530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0762f75697481424aad4ae32a768056e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3635494195013391393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

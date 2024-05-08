@@ -9,21 +9,22 @@ namespace DreamScape.Controllers {
         private int numberOfWaypoints {get {return transform.childCount;}}
 
         private void OnDrawGizmos() {
+            for (int i = 0;i < numberOfWaypoints; i++) {
 
-            for (int i = 0; i < numberOfWaypoints; i++)
-            {
-                Gizmos.DrawSphere(transform.GetChild(i).position, waypointGizmosRadius);
-                
-                if (i == transform.childCount - 1) {
+                Gizmos.DrawSphere(GetWaypoint(i), waypointGizmosRadius);
 
-                    Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i - numberOfWaypoints + 1).position);
-
-                } else {
-
-                    Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i+1).position);
-                    
-                }
+                int j = GetNextWaypointIndex(i);
+                Gizmos.DrawLine(GetWaypoint(i), GetWaypoint(j));
             }
+        }
+
+        public Vector3 GetWaypoint(int i) {
+            return transform.GetChild(i).position;
+        }
+
+        public int GetNextWaypointIndex(int i) {
+            if (i + 1 == numberOfWaypoints) return 0;
+            return i + 1;
         }
     }
 }
