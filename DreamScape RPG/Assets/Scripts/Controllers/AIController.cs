@@ -24,7 +24,8 @@ namespace DreamScape.Controllers {
         [SerializeField] private Transform target;
 
         private float timeWithoutCombat = Mathf.Infinity;
-        private float timeElapsedDuringSuspicion;
+        private float timeElapsedDuringSuspicion = Mathf.Infinity;
+        private float timeSinceLastWaypoint = Mathf.Infinity;
         private Vector3 gaurdPosition; 
         private ActionManager actionManager;
         private int currentWaypointIndex = 0;
@@ -87,17 +88,21 @@ namespace DreamScape.Controllers {
 
         private void PatrolBehaviour() {
 
+            timeSinceLastWaypoint += Time.deltaTime;
             Vector3 nextPosition = gaurdPosition;
 
             if (patrolPath != null) {
                 
                 if (OnWaypoint()) {
+                    timeSinceLastWaypoint = 0;
                     CycleWaypoints();
                 }
                 nextPosition = GetCurrentWaypoint();
             }
 
-            movement.StartMoveAction(nextPosition);
+            if (timeSinceLastWaypoint >= waypointsDwellTime) {
+                movement.StartMoveAction(nextPosition);
+            }
         }
 
         private bool OnWaypoint() {
