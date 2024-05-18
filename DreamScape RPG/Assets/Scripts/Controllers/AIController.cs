@@ -46,7 +46,7 @@ namespace DreamScape.Controllers {
                 ChaseBehaviour();
             }
             else {
-                ShowSuspicionAndPatrol();
+                //ShowSuspicionAndPatrol();
             }
         }
 

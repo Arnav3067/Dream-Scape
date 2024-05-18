@@ -1,3 +1,4 @@
+using System;
 using DreamScape.Combat;
 using DreamScape.Core;
 using DreamScape.Locomotion;
@@ -13,7 +14,10 @@ namespace DreamScape.Controllers
         [SerializeField] private Movement playerMovement;
         [SerializeField] private Combatant combat;
         [SerializeField] private Health playerHealth;
+        [SerializeField] private ActionManager actionManager;
+        [SerializeField] private GroundCheck groundCheck;
         [SerializeField] private float maxClickRange;
+        [SerializeField] private float groundTolerance = 2;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask clickableLayer;
 
@@ -25,7 +29,7 @@ namespace DreamScape.Controllers
             controller = this;
         }
 
-        private void Update() {
+        private void LateUpdate() {
 
             if (!playerHealth.isAlive) return;
             if (CombastIfPossible()) return;
@@ -59,10 +63,16 @@ namespace DreamScape.Controllers
                 if (GetMouseButton(MouseButton.Left)) {
                     playerMovement.StartMoveAction(hit.point);
                 }
+
+                print(groundCheck.IsGrounded());
                 
+                if (Input.GetKeyDown(KeyCode.Space)){
+                    print("jump");
+                    playerMovement.Jump();
+                }
+
                 return true; // if the raycast is hitting something, 
                 //it is true (either if the mouse button is pressed  or not) (hovering or clicked)
-
             }
             return false;
         }
@@ -75,11 +85,11 @@ namespace DreamScape.Controllers
             return hasHit;
         }
 
-        public bool GetMouseButtonDown(MouseButton button) {
+        private bool GetMouseButtonDown(MouseButton button) {
             return Input.GetMouseButtonDown((int) button);
         }
 
-        public bool GetMouseButton(MouseButton button) {
+        private bool GetMouseButton(MouseButton button) {
             return Input.GetMouseButton((int) button);
         }
 
